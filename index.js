@@ -1,25 +1,16 @@
 
-import express from 'express';
+import dotenv from "dotenv";
+dotenv.config();
 
+import express from "express";
 const app = express();
-const port = 3000;
+import userRouter from "./routes/userRouter.js";
 
 
-app.get('/', function (req, res) {
-    res.send('get 요청')
-});
+//console.log(process.env.NODE_ENV); // NODE_EVN 환경변수
 
-app.post('/', function (req, res) {
-    res.send('set 요청')
-});
+// middleware
+app.use(express.json());
+app.use("/", userRouter);
 
-app.put('/', function (req, res) {
-    res.send('put 요청')
-});
-
-app.delete('/', function (req, res) {
-    res.send('delete 요청')
-});
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
-});
+app.listen(3000)
